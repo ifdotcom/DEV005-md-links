@@ -13,21 +13,23 @@ const argv = require('yargs')
   }).argv;
 
 const { mdLinks } = require('.');
+const readDir = require("./functions");
 
 const input = argv._[0];
 
 // console.log(input);
 // console.log(argv);
 // console.log(argv.validate);
+// console.log(argv.stats);
 
 mdLinks(input)
   .then((res) => {
     const routeUser = res.route;
     const routeAbsolute = path.isAbsolute(routeUser);
     if (!routeAbsolute) {
-      path.resolve(routeUser);
+      return readDir(path.resolve(routeUser));
     }
-    return routeUser;
+    return readDir(routeUser);
   })
   .catch((err) => {
     return console.log(err);
