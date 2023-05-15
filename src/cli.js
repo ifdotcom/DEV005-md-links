@@ -42,6 +42,10 @@ mdLinks(input)
     }
     return readDir(routeUser);
   })
+  .then((res) => {
+    // arr con todos los archivos
+    console.log(res);
+  })
   .catch((err) => {
     return console.log(err);
   });
