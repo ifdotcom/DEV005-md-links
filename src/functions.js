@@ -1,7 +1,17 @@
-// funcion para validar si es un directorio o un archivo
 const fs = require("fs");
 const path = require("path");
 
+// funcion para validar si la ruta existe
+
+const validateRoute = (route) => {
+  if (fs.existsSync(route)) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+// funcion para validar si es un directorio o un archivo
 const arrFiles = [];
 
 // la funcion recibe la ruta
@@ -29,4 +39,4 @@ const readDir = (route) => {
   //   });
 };
 
-module.exports = readDir;
+module.exports = { validateRoute, readDir };

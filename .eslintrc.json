@@ -18,6 +18,7 @@
     "prefer-destructuring": 0,
     "import/no-extraneous-dependencies": 0,
     "arrow-body-style": ["error", "always"],
-    "prefer-promise-reject-errors": 0
+    "prefer-promise-reject-errors": 0,
+    "defaultAssignment": false
   }
 }
