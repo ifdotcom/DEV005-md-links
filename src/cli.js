@@ -14,10 +14,7 @@ const argv = require("yargs")
 
 const { mdLinks } = require(".");
 const {
-  validateRoute,
-  readDir,
-  filterFiles,
-  readFileMD,
+  getFilesMD
 } = require("./functions");
 
 const input = argv._[0];
@@ -33,30 +30,8 @@ mdLinks(input,objOptions)
   .then((res) => {
     console.log(res)
     const routeUser = res.route;
-    if (validateRoute(routeUser)) {
-      return routeUser;
-    } else {
-      return console.log("La ruta no existe");
-    }
-  })
-  .then((res) => {
-    const routeUser = res;
-    if (routeUser === undefined) {
-      return;
-    }
-    const routeAbsolute = path.isAbsolute(routeUser);
-    if (!routeAbsolute) {
-      return readDir(path.resolve(routeUser));
-    }
-    return readDir(routeUser);
-  })
-  .then((res) => {
-    // arr con todos los archivos
-    return filterFiles(res);
-  })
-  .then((res) => {
-    // arr con los archivos filtrados (MD)
-    readFileMD(res);
+    getFilesMD(routeUser);
+  
   })
   .catch((err) => {
     return console.log(err);

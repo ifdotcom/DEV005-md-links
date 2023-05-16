@@ -3,16 +3,28 @@ const path = require("path");
 
 // funcion para validar si la ruta existe
 
-const validateRoute = (route) => {
+const getFilesMD = (route) => {
   if (fs.existsSync(route)) {
-    return true;
+    const validRoute = isRouteAbs(route);
+    const arrFiles = readDir(validRoute);
+    const filterFilesMD = filterFiles(arrFiles);
+    console.log(filterFilesMD);
   } else {
-    return false;
+    return console.log("La ruta no existe");
+  }
+};
+
+// funcion para convertir de relativa a absoluta
+const isRouteAbs = (route) => {
+  const routeAbsolute = path.isAbsolute(route);
+  if (routeAbsolute) {
+    return route;
+  } else {
+    return path.resolve(route);
   }
 };
 
 // funcion para validar si es un directorio o un archivo
-
 // la funcion recibe la ruta
 // necesito saber si es un directorio o archivo: ¿por la extension?
 // metodos:
@@ -43,10 +55,10 @@ const readDir = (route) => {
   return arrFiles;
 };
 
-// función para filtrar solo los archivos md
+// // función para filtrar solo los archivos md
 
 const filterFiles = (arr) => {
-  if(arr === undefined){
+  if (arr === undefined) {
     return;
   }
   const arrFilesMD = [];
@@ -58,11 +70,10 @@ const filterFiles = (arr) => {
   return arrFilesMD;
 };
 
-// Función para leer archivos MD
+// // Función para leer archivos MD
 
-const readFileMD = (arr) =>{
-console.log(arr)
-}
+// const readFileMD = (arr) =>{
+// console.log(arr)
+// }
 
-
-module.exports = { validateRoute, readDir, filterFiles, readFileMD };
+module.exports = { getFilesMD };
