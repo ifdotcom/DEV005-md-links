@@ -13,17 +13,25 @@ const argv = require("yargs")
   }).argv;
 
 const { mdLinks } = require(".");
-const { validateRoute, readDir } = require("./functions");
+const {
+  validateRoute,
+  readDir,
+  filterFiles,
+  readFileMD,
+} = require("./functions");
 
 const input = argv._[0];
-
+const validate = argv.validate;
+const stats = argv.stats;
+const objOptions = { validate, stats };
 // console.log(input);
 // console.log(argv);
 // console.log(argv.validate);
 // console.log(argv.stats);
 
-mdLinks(input)
+mdLinks(input,objOptions)
   .then((res) => {
+    console.log(res)
     const routeUser = res.route;
     if (validateRoute(routeUser)) {
       return routeUser;
@@ -44,7 +52,11 @@ mdLinks(input)
   })
   .then((res) => {
     // arr con todos los archivos
-    console.log(res);
+    return filterFiles(res);
+  })
+  .then((res) => {
+    // arr con los archivos filtrados (MD)
+    readFileMD(res);
   })
   .catch((err) => {
     return console.log(err);

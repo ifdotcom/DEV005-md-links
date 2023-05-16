@@ -21,7 +21,6 @@ const validateRoute = (route) => {
 //# fs.stat(path[, options], callback) ->
 const arrFiles = [];
 const readDir = (route) => {
-
   // leer directorio -> devuelve arr con todo lo que está dentro del Dir
   const content = fs.readdirSync(route);
   // console.log(content);
@@ -35,16 +34,35 @@ const readDir = (route) => {
     // guardar cada elemento en el arrFiles: para 15/05/23
     if (statusFile) {
       // guarda un objeto en el arrFiles
-      arrFiles.push( fileRoute );
+      arrFiles.push(fileRoute);
     } else {
       readDir(fileRoute);
     }
   });
- 
+
   return arrFiles;
 };
 
 // función para filtrar solo los archivos md
 
+const filterFiles = (arr) => {
+  if(arr === undefined){
+    return;
+  }
+  const arrFilesMD = [];
+  arr.forEach((element) => {
+    if (path.extname(element) === `.md`) {
+      arrFilesMD.push(element);
+    }
+  });
+  return arrFilesMD;
+};
 
-module.exports = { validateRoute, readDir };
+// Función para leer archivos MD
+
+const readFileMD = (arr) =>{
+console.log(arr)
+}
+
+
+module.exports = { validateRoute, readDir, filterFiles, readFileMD };

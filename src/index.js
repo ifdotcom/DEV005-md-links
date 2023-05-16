@@ -1,9 +1,9 @@
-const mdLinks = (route) => {
+const mdLinks = (route, options) => {
   return new Promise((resolve, reject) => {
     if (route) {
-      resolve({ route });
+      resolve({ route, options });
     } else {
-      reject('something bad happened');
+      reject("something bad happened");
     }
   });
 };
