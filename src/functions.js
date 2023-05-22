@@ -1,3 +1,4 @@
+const MarkdownIt = require("markdown-it");
 const fs = require("fs");
 const path = require("path");
 
@@ -8,9 +9,9 @@ const getFilesMD = (route) => {
     const validRoute = isRouteAbs(route);
     const arrFiles = readDir(validRoute);
     const filterFilesMD = filterFiles(arrFiles);
-    console.log(filterFilesMD);
+    return filterFilesMD;
   } else {
-    return console.log("La ruta no existe");
+    return "La ruta no existe";
   }
 };
 
@@ -55,7 +56,7 @@ const readDir = (route) => {
   return arrFiles;
 };
 
-// // función para filtrar solo los archivos md
+// función para filtrar solo los archivos md
 
 const filterFiles = (arr) => {
   if (arr === undefined) {
@@ -70,10 +71,38 @@ const filterFiles = (arr) => {
   return arrFilesMD;
 };
 
-// // Función para leer archivos MD
+// Función para leer archivos MD
 
-// const readFileMD = (arr) =>{
-// console.log(arr)
-// }
+const getLinks = (routeFile) =>
+  new Promise((resolve, reject) => {
+    fs.readFile(routeFile, "utf8", (error, data) => {
+      if (error) {
+        reject("No se encontraron links");
+      }
+      const pattern = /\[([^\]]+)\]\((https?:\/\/[\w\-.]+\/?.*)\)/g;
+      const contentMD = data.toString();
+      const exprMatch = contentMD.match(pattern);
 
-module.exports = { getFilesMD };
+      if (!exprMatch) {
+        resolve([]);
+      } else {
+        const objLinks = exprMatch.map((e) => {
+          const [_, text, href] = e.match(
+            /\[([^\]]+)\]\((https?:\/\/[\w\-.]+\/?.*)\)/
+          );
+          return { href, text, file: routeFile };
+        });
+        resolve (objLinks);
+      }
+    });
+  });
+
+const readFilesMD = (routesfilesMD) => {
+  const arrLinks = routesfilesMD.map((file) => {
+    return getLinks(file);
+  });
+  return Promise.all(arrLinks);
+};
+
+
+module.exports = { getFilesMD, readFilesMD };
