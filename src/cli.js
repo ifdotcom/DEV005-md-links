@@ -13,9 +13,6 @@ const argv = require("yargs")
   }).argv;
 
 const { mdLinks } = require(".");
-const {
-  getFilesMD
-} = require("./functions");
 
 const input = argv._[0];
 const validate = argv.validate;
@@ -26,12 +23,10 @@ const objOptions = { validate, stats };
 // console.log(argv.validate);
 // console.log(argv.stats);
 
-mdLinks(input,objOptions)
-  .then((res) => {
-    console.log(res)
-    const routeUser = res.route;
-    getFilesMD(routeUser);
-  
+mdLinks(input, objOptions)
+  .then((arrLinks) => {
+    // Aquí tienes el array de contenidos de los archivos MD
+    console.log(arrLinks);
   })
   .catch((err) => {
     return console.log(err);
