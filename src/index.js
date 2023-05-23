@@ -12,8 +12,9 @@ const mdLinks = (route, options) => {
 
     readFilesMD(filesMD)
       .then((res) => {
+        // console.log(res)
         const data = showData(res.flat(), options);
-        resolve(data);
+        resolve(data.toString());
         // resolve(res.flat());
       })
       .catch((err) => {

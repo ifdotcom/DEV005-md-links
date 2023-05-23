@@ -26,7 +26,7 @@ const objOptions = { validate, stats };
 mdLinks(input, objOptions)
   .then((arrLinks) => {
     // Aquí tienes el array de contenidos de los archivos MD
-   console.log("arrLinks",arrLinks)
+   console.log(arrLinks)
   })
   .catch((err) => {
     return console.log(err);
