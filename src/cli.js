@@ -5,11 +5,13 @@ const argv = require("yargs")
     alias: "validate",
     type: "boolean",
     default: false,
+    describe: "Check if the link works or not.",
   })
   .options("s", {
     alias: "stats",
     type: "boolean",
     default: false,
+    describe: "Basic statistics about the links.",
   }).argv;
 
 const { mdLinks } = require("./index");

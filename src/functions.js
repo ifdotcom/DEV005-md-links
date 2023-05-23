@@ -138,11 +138,11 @@ const showData = (obj, options) => {
   });
   const tableStats = new Table({
     head: ["Total", "Unique"], // Encabezados de la tabla
-    colWidths: [50, 50], // Ancho de las columnas
+    colWidths: [20, 20], // Ancho de las columnas
   });
   const tableStatsVS = new Table({
     head: ["Total", "Unique", "Broken"], // Encabezados de la tabla
-    colWidths: [50, 50], // Ancho de las columnas
+    colWidths: [20, 20,20], // Ancho de las columnas
   });
   if (options.validate === false && options.stats === false) {
     obj.forEach((e) => {
@@ -155,7 +155,7 @@ const showData = (obj, options) => {
     });
     return table;
   }
-  if (options.validate === true) {
+  if (options.validate === true && options.stats === false) {
     obj.forEach((e) => {
       tableValidate.push([e.href, e.status, e.statusText, e.text, e.file]);
     });
@@ -175,7 +175,7 @@ const showData = (obj, options) => {
     const { totalLinks, uniqueLinksArray, brokenLinks } = stats(obj);
     // console.log("Total enlaces:", totalLinks);
     // console.log("Enlaces únicos:", uniqueLinksArray.length);
-      tableStatsVS.push([totalLinks, uniqueLinksArray.length, brokenLinks]);
+      tableStatsVS.push([totalLinks, uniqueLinksArray.length, brokenLinks.length]);
 
     return tableStatsVS;
   }
