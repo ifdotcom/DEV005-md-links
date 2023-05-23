@@ -1,21 +1,24 @@
-const { getFilesMD, readFilesMD } = require("./functions");
+const { isRouteAbs, getFilesMD, readFilesMD, showData } = require("./functions.js");
 
 const mdLinks = (route, options) => {
   return new Promise((resolve, reject) => {
-    console.log("opciones", options);
-    const filesMD = getFilesMD(route);
-    // const fileContent = readFileMD(filesMD);
-   
-    if (filesMD === "La ruta no existe") {
-      reject("La ruta no existe");
+    // console.log("opciones", options);
+    const routeUser = isRouteAbs(route);
+    if (routeUser === "error") {
+      reject("Error: La ruta no existe");
     }
-   readFilesMD(filesMD)
-     .then((res) => {
-       resolve(res.flat());
-     })
-     .catch((err) => {
-       reject(err);
-     });
+    const filesMD = getFilesMD(routeUser);
+    // const fileContent = readFileMD(filesMD);
+
+    readFilesMD(filesMD)
+      .then((res) => {
+        const data = showData(res.flat(), options);
+        resolve(data);
+        // resolve(res.flat());
+      })
+      .catch((err) => {
+        reject(err);
+      });
   });
 };
 

@@ -1,5 +1,5 @@
 // funcion para validar ruta
-const path = require("path");
+// const path = require("path");
 const argv = require("yargs")
   .options("v", {
     alias: "validate",
@@ -12,7 +12,7 @@ const argv = require("yargs")
     default: false,
   }).argv;
 
-const { mdLinks } = require(".");
+const { mdLinks } = require("./index");
 
 const input = argv._[0];
 const validate = argv.validate;
@@ -26,7 +26,7 @@ const objOptions = { validate, stats };
 mdLinks(input, objOptions)
   .then((arrLinks) => {
     // Aquí tienes el array de contenidos de los archivos MD
-    console.log(arrLinks);
+   console.log("arrLinks",arrLinks)
   })
   .catch((err) => {
     return console.log(err);
