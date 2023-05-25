@@ -185,6 +185,7 @@ const stats = (obj) => {
   // console.log("stats",obj);
   const totalLinks = obj.length;
   const uniqueLinks = new Set(obj.map((el) => el.href));
+  // console.log(uniqueLinks)
   const uniqueLinksArray = Array.from(uniqueLinks);
 const brokenLinks = obj.filter((el) => el.status !== 200);
 

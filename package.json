@@ -5,7 +5,8 @@
     "node": ">=16.x"
   },
   "scripts": {
-  "markdown": "node src/cli.js"
+  "markdown": "node src/cli.js",
+  "test": "jest --coverage"
 },
   "devDependencies": {
     "eslint": "^8.40.0",
