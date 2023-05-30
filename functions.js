@@ -26,32 +26,10 @@ const isRouteAbs = (route) => {
 // eslint-disable-next-line max-len
 // # fs.readdir(path[, options], callback) -> Lee el contenido de un directorio. La devolución de llamada obtiene dos argumentos (err, files) donde fileshay una matriz de los nombres de los archivos en el directorio, excluyendo '.'y '..'.
 //# fs.stat(path[, options], callback) ->
-// const arrFiles = [];
-// const readDir = (route) => {
-//   // console.log(content);
-//   const fileStatus = fs.lstatSync(route);
-//   // console.log(fs.lstatSync(route));
-//   const statusFile =
-//     fileStatus && fileStatus.isFile ? fileStatus.isFile() : false;
 
-//   if (statusFile) {
-//     // guarda un objeto en el arrFiles
-//     path.extname(route) === ".md" && arrFiles.push(route);
-//   } else {
-//     // leer directorio -> devuelve arr con todo lo que está dentro del Dir
-//     const content = fs.readdirSync(route);
-//     // con join se junta el nombre de cada element con la ruta original
-//     const routes = content.map((el) => path.join(route, el));
-//     routes.forEach((el) => readDir(el));
-//   }
-
-//   return arrFiles;
-// };
 const readDir = (route) => {
   const fileStatus = fs.lstatSync(route);
     const isFile = fileStatus ? fileStatus.isFile() : false;
-
-
   if (isFile) {
    if (isMarkdownFile(route)) {
      return [route];
@@ -72,23 +50,10 @@ const readDir = (route) => {
     return subFiles;
   }
 };
+
 const isMarkdownFile = (filePath) => {
   return path.extname(filePath) === ".md";
 };
-// funcion para validar si la ruta existe
-
-// const getFilesMD = (route) => {
-//   // console.log("getFiles route:", route);
-//   // const validRoute = isRouteAbs(route);
-//   // console.log("route, functions.js",route)
-//   const arrFiles = readDir(route);
-//   // const filterFilesMD = filterFiles(arrFiles);
-//   // console.log(validRoute);
-//   // console.log(filterFilesMD);
-//   return arrFiles;
-// };
-
-// Función para leer archivos MD
 
 const getLinks = (routeFile) => {
   return new Promise((resolve, reject) => {

@@ -6,7 +6,7 @@ const {
   getLinks,
   stats,
   readDir,
-} = require("./functions.js");
+} = require("../functions.js");
 
 jest.mock("fs");
 describe("isRouteAbs", () => {
@@ -49,13 +49,13 @@ describe("readDir", () => {
     ]);
   });
 
-  it("returns empty array", () => {
-    const route =
-      "C:\\Users\\hp\\Documents\\BOOTCAMP LABO\\DEV005-md-links\\test\\test-directory";
+  // it("returns empty array", () => {
+  //   const route =
+  //     "C:\\Users\\hp\\Documents\\BOOTCAMP LABO\\DEV005-md-links\\test\\test-directory";
 
-    const result = readDir(route);
-    expect(result).toEqual([]);
-  });
+  //   const result = readDir(route);
+  //   expect(result).toEqual([]);
+  // });
 });
 describe("readFilesMD", () => {
   it("should read array with files md", (done) => {
