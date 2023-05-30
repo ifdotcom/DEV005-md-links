@@ -1,6 +1,6 @@
 // const MarkdownIt = require("markdown-it");
 const fetch = require("node-fetch");
-const Table = require("cli-table");
+// const Table = require("cli-table");
 const fs = require("fs");
 const path = require("path");
 
@@ -26,38 +26,66 @@ const isRouteAbs = (route) => {
 // eslint-disable-next-line max-len
 // # fs.readdir(path[, options], callback) -> Lee el contenido de un directorio. La devolución de llamada obtiene dos argumentos (err, files) donde fileshay una matriz de los nombres de los archivos en el directorio, excluyendo '.'y '..'.
 //# fs.stat(path[, options], callback) ->
-const arrFiles = [];
+// const arrFiles = [];
+// const readDir = (route) => {
+//   // console.log(content);
+//   const fileStatus = fs.lstatSync(route);
+//   // console.log(fs.lstatSync(route));
+//   const statusFile =
+//     fileStatus && fileStatus.isFile ? fileStatus.isFile() : false;
+
+//   if (statusFile) {
+//     // guarda un objeto en el arrFiles
+//     path.extname(route) === ".md" && arrFiles.push(route);
+//   } else {
+//     // leer directorio -> devuelve arr con todo lo que está dentro del Dir
+//     const content = fs.readdirSync(route);
+//     // con join se junta el nombre de cada element con la ruta original
+//     const routes = content.map((el) => path.join(route, el));
+//     routes.forEach((el) => readDir(el));
+//   }
+
+//   return arrFiles;
+// };
 const readDir = (route) => {
-  // console.log(content);
+  const fileStatus = fs.lstatSync(route);
+  const isFile = fileStatus && fileStatus.isFile ? fileStatus.isFile() : false;
 
-  const statusFile = fs.lstatSync(route).isFile();
-
-  if (statusFile) {
-    // guarda un objeto en el arrFiles
-    path.extname(route) === ".md" && arrFiles.push(route);
+  if (isFile) {
+   if (isMarkdownFile(route)) {
+     return [route];
+   } else {
+     return [];
+   }
   } else {
-    // leer directorio -> devuelve arr con todo lo que está dentro del Dir
     const content = fs.readdirSync(route);
-    // con join se junta el nombre de cada element con la ruta original
-    const routes = content.map((el) => path.join(route, el));
-    routes.forEach((el) => readDir(el));
+    const subFiles = content
+      .map((file) => {
+        const filePath = path.join(route, file);
+        return readDir(filePath);
+      })
+      .reduce((result, files) => {
+        return result.concat(files);
+      }, []);
+
+    return subFiles;
   }
-
-  return arrFiles;
 };
-
+const isMarkdownFile = (filePath) => {
+  return path.extname(filePath) === ".md";
+};
 // funcion para validar si la ruta existe
 
-const getFilesMD = (route) => {
-  // console.log("getFiles route:", route);
-  // const validRoute = isRouteAbs(route);
-  // console.log("route, functions.js",route)
-  const arrFiles = readDir(route);
-  // const filterFilesMD = filterFiles(arrFiles);
-  // console.log(validRoute);
-  // console.log(filterFilesMD);
-  return arrFiles;
-};
+// const getFilesMD = (route) => {
+//   // console.log("getFiles route:", route);
+//   // const validRoute = isRouteAbs(route);
+//   // console.log("route, functions.js",route)
+//   const arrFiles = readDir(route);
+//   // const filterFilesMD = filterFiles(arrFiles);
+//   // console.log(validRoute);
+//   // console.log(filterFilesMD);
+//   return arrFiles;
+// };
 
 // Función para leer archivos MD
 
@@ -124,73 +152,21 @@ const readFilesMD = (routesfilesMD) => {
   return Promise.all(arrLinks);
 };
 
-const showData = (obj, options) => {
-  // console.log(obj);
-  // console.log(options.validate);
-  // console.log(options.stats);
-  const table = new Table({
-    head: ["URL", "Text", "Route"], // Encabezados de la tabla
-    colWidths: [50, 20, 50], // Ancho de las columnas
-  });
-  const tableValidate = new Table({
-    head: ["URL", "Status", "Status Text", "Text", "Route"], // Encabezados de la tabla
-    colWidths: [50, 10, 10, 20, 50], // Ancho de las columnas
-  });
-  const tableStats = new Table({
-    head: ["Total", "Unique"], // Encabezados de la tabla
-    colWidths: [20, 20], // Ancho de las columnas
-  });
-  const tableStatsVS = new Table({
-    head: ["Total", "Unique", "Broken"], // Encabezados de la tabla
-    colWidths: [20, 20,20], // Ancho de las columnas
-  });
-  if (options.validate === false && options.stats === false) {
-    obj.forEach((e) => {
-      table.push([e.href, e.text, e.file]);
-      // console.log("-----------------")
-      // console.log(e.href);
-      // console.log(e.text);
-      // console.log(e.file);
-      // console.log("-----------------");
-    });
-    return table;
-  }
-  if (options.validate === true && options.stats === false) {
-    obj.forEach((e) => {
-      tableValidate.push([e.href, e.status, e.statusText, e.text, e.file]);
-    });
-    return tableValidate;
-  }
-  if (options.stats === true && options.validate === false) {
-    
-    const { totalLinks, uniqueLinksArray, _ } = stats(obj);
-    // console.log("Total enlaces:", totalLinks);
-    // console.log("Enlaces únicos:", uniqueLinksArray.length);
-      tableStats.push([totalLinks, uniqueLinksArray.length]);
-
-    return tableStats;
-  }
-  if (options.stats === true && options.validate === true) {
-    
-    const { totalLinks, uniqueLinksArray, brokenLinks } = stats(obj);
-    // console.log("Total enlaces:", totalLinks);
-    // console.log("Enlaces únicos:", uniqueLinksArray.length);
-      tableStatsVS.push([totalLinks, uniqueLinksArray.length, brokenLinks.length]);
-
-    return tableStatsVS;
-  }
-};
-
 const stats = (obj) => {
   // console.log("stats",obj);
   const totalLinks = obj.length;
   const uniqueLinks = new Set(obj.map((el) => el.href));
   // console.log(uniqueLinks)
   const uniqueLinksArray = Array.from(uniqueLinks);
-const brokenLinks = obj.filter((el) => el.status !== 200);
+  const brokenLinks = obj.filter((el) => el.status !== 200);
 
-  
   return { totalLinks, uniqueLinksArray, brokenLinks };
 };
 
-module.exports = { isRouteAbs, getFilesMD, readFilesMD, showData };
+module.exports = {
+  isRouteAbs,
+  readFilesMD,
+  getLinks,
+  stats,
+  readDir,
+};

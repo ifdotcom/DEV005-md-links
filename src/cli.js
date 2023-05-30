@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 // funcion para validar ruta
 // const path = require("path");
 const argv = require("yargs")
@@ -15,7 +16,7 @@ const argv = require("yargs")
   }).argv;
 
 const { mdLinks } = require("./index");
-
+// console.log(argv)
 const input = argv._[0];
 const validate = argv.validate;
 const stats = argv.stats;
@@ -26,8 +27,9 @@ const objOptions = { validate, stats };
 // console.log(argv.stats);
 
 mdLinks(input, objOptions)
-  .then((arrLinks) => {
-   console.log(arrLinks)
+  .then((res) => {
+    
+    return console.log(res);
   })
   .catch((err) => {
     return console.log(err);
