@@ -4,10 +4,12 @@
   "engines": {
     "node": ">=16.x"
   },
+  "bin": {
+    "md-links": "src/cli.js"
+  },
   "scripts": {
-  "markdown": "node src/cli.js",
-  "test": "jest --coverage"
-},
+    "test": "jest --coverage"
+  },
   "devDependencies": {
     "eslint": "^8.40.0",
     "eslint-config-airbnb-base": "^15.0.0",
