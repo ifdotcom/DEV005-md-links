@@ -38,8 +38,7 @@ describe("isRouteAbs", () => {
   });
 });
 describe("readDir", () => {
-  // Tests that the function returns an array of markdown file paths when given a valid directory path.
-  it("test_valid_directory_path_returns_array_of_markdown_files", () => {
+  it("returns array of markdown files", () => {
     const route =
       "C:\\Users\\hp\\Documents\\BOOTCAMP LABO\\DEV005-md-links\\test\\test-directory";
 
@@ -49,8 +48,8 @@ describe("readDir", () => {
       "C:\\Users\\hp\\Documents\\BOOTCAMP LABO\\DEV005-md-links\\test\\test-directory\\dir1\\README.md",
     ]);
   });
-  // Tests that the function returns an empty array when given a valid directory path with no markdown files.
-  it("test_valid_directory_path_with_no_markdown_files_returns_empty_array", () => {
+
+  it("returns empty array", () => {
     const route =
       "C:\\Users\\hp\\Documents\\BOOTCAMP LABO\\DEV005-md-links\\test\\test-directory";
 

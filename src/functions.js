@@ -49,7 +49,8 @@ const isRouteAbs = (route) => {
 // };
 const readDir = (route) => {
   const fileStatus = fs.lstatSync(route);
-  const isFile = fileStatus && fileStatus.isFile ? fileStatus.isFile() : false;
+    const isFile = fileStatus ? fileStatus.isFile() : false;
+
 
   if (isFile) {
    if (isMarkdownFile(route)) {
