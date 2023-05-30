@@ -4,7 +4,7 @@ const {
   readFilesMD,
   stats,
   readDir,
-} = require("./functions.js");
+} = require("./functions");
 const Table = require("cli-table");
 
 const mdLinks = (route, options) => {

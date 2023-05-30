@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-// funcion para validar ruta
-// const path = require("path");
 const argv = require("yargs")
   .options("v", {
     alias: "validate",

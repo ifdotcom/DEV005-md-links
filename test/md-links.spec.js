@@ -1,5 +1,5 @@
 const Table = require("cli-table");
-const { mdLinks } = require("../src/index.js");
+const { mdLinks } = require("./index.js");
 
 describe("mdLinks", () => {
   it("return error if route is invalid", () => {

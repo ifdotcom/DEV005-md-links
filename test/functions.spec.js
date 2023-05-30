@@ -6,7 +6,7 @@ const {
   getLinks,
   stats,
   readDir,
-} = require("../src/functions.js");
+} = require("./functions.js");
 
 jest.mock("fs");
 describe("isRouteAbs", () => {
