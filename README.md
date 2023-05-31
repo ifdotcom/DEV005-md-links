@@ -5,7 +5,7 @@
 - [2. Instalación](#2-instalación)
 - [3. Casos de uso](#3-casos-de-uso)
 - [4. MDLINKS como módulo](#4-mdlinks-como-módulo)
-- [5. Desarollo](#5-desarollo)
+- [5. Desarrollo](#5-desarrollo)
 
 ## 1. MDLINKS
 
@@ -133,6 +133,6 @@ Además, tienes la opción de importar el módulo de una forma alternativa:
 
 ```
 
-## 5. Desarollo
+## 5. Desarrollo
 - Planificación | [GitHub Projects](https://github.com/users/ifdotcom/projects/1)
 - Diagrama de flujo | [Diagrama de Flujo](https://user-images.githubusercontent.com/65190924/237469670-39c6c64b-ef9e-45c8-b0ba-f075f445d529.png)
