@@ -13,7 +13,8 @@
 
 mdLinks es una poderosa librería diseñada para extraer enlaces de archivos Markdown (MD) y proporcionar estadísticas útiles sobre esos enlaces. Con esta herramienta, los desarrolladores pueden automatizar la tarea de encontrar enlaces en archivos MD y obtener información valiosa sobre ellos de manera rápida y eficiente.
 Al utilizar mdLinks, los usuarios pueden pasar una ruta o un directorio como argumento y la librería buscará todos los archivos con extensión .md dentro de la ruta especificada.
-Una vez que los archivos MD son identificados, mdLinks extrae los enlaces contenidos en cada archivo y devuelve una tabla con información detallada sobre cada enlace. Esta información incluye la URL del enlace, el texto de anclaje y la ruta del archivo en el que se encuentra.
+Una vez que los archivos MD son identificados, mdLinks extrae los enlaces contenidos en cada archivo y devuelve una tabla con información detallada sobre cada enlace.
+Esta información incluye la URL del enlace, el texto de anclaje y la ruta del archivo en el que se encuentra.
 Además de la extracción de enlaces, mdLinks ofrece estadísticas útiles sobre los enlaces encontrados. Proporciona el número total de enlaces encontrados, así como el número de enlaces únicos, es decir, aquellos que no se repiten.
 mdLinks también ofrece la capacidad de verificar el estado de cada enlace extraído. Puede detectar enlaces rotos, es decir, aquellos que conducen a páginas web no disponibles o que devuelven un código de error.
 
@@ -52,7 +53,7 @@ _Caso 1 | Ejemplo_
   md-links <path-to-file-or-directory> --validate
 ```
 
-or
+o
 
 ```bash
   md-links <path-to-file-or-directory> -v
@@ -77,7 +78,7 @@ _Caso 2 | Ejemplo_
   md-links <path-to-file-or-directory> --stats
 ```
 
-or
+o
 
 ```bash
   md-links <path-to-file-or-directory> -s
@@ -99,7 +100,7 @@ _Caso 3 | Ejemplo_
   md-links <path-to-file-or-directory> --validate --stats
 ```
 
-or
+o
 
 ```bash
   md-links <path-to-file-or-directory> -v -s
